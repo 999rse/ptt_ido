@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "@babel/core": "^7.23.2",
+    "@openzeppelin/contracts": "^5.0.0",
+    "bootstrap": "^5.3.2",
+    "browserify": "^17.0.0",
+    "ethers": "^5.5.3",
+    "solc": "0.8.17",
+    "watchify": "^4.0.0",
+    "web3": "4.2.1"
+  },
+  "scripts": {
+    "build": "browserify index.js --standalone bundle -o ./dist/bundle.js",
+    "watch": "watchify index.js --standalone bundle -o ./dist/bundle.js -v"
+  },
+  "devDependencies": {
+    "babelify": "^10.0.0",
+    "http-server": "^14.1.0"
+  }
+}
