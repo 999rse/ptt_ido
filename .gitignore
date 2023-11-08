@@ -1,0 +1,10 @@
+# Dirs
+/node_modules
+/abi
+/archive
+/dist
+/build
+
+# Files
+yarn.lock
+notice.md
