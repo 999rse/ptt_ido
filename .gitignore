@@ -9,6 +9,5 @@
 yarn.lock
 notice.md
 
-# Debug files
-getContractEtherBalance.js
-getWalletBalance.js
+# Local
+/exec_local
