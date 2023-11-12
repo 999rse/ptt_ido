@@ -1,11 +1,11 @@
 const { ethers } = require("ethers");
 
 // OWNER CONTRACT ADDRESS IDO !!!
-const OWNER_CONTRACT_ADDRESS_IDO = "0xCCB4397F3Bf63a55d442852e2Ee8B32E87681377";
+const OWNER_CONTRACT_ADDRESS_IDO = "0x7F671EaA754651b4e32087e82b85CBb930659f73";
 
 
 // Адрес контракта IDO и его ABI
-const CONTRACT_ADDRESS_IDO = "0x1b2d83cE6Eda222f8ED85d9ea08976e437FAcd0F"//"0x9f06F880fC68369079b059F0648fC025f16bB36b";
+const CONTRACT_ADDRESS_IDO = "0xbE2176Acc8554bF14498E985334bBE47920b5FAB"
 const ABI_IDO = require('./abi/abi_ido_token.json');
 
 // Адрес контракта токена и его ABI
@@ -54,14 +54,8 @@ document.getElementById("connectButton").addEventListener("click", connect);
 
 
 // Покупка токенов в eth
-async function purchaseTokens() {
+async function purchaseTokens(etherAmount) {
   if (typeof window.ethereum !== "undefined") {
-      const etherAmount = parseFloat(prompt("Please enter the amount in Ether you wish to invest in tokens:")); // Запрос пользователю указать количество токенов
-      if (isNaN(etherAmount) || etherAmount <= 0) {
-          alert("Please enter a valid number of tokens.");
-          return;
-      }
-
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
       const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
@@ -104,7 +98,7 @@ async function withdrawTokens() {
   }
 }
 
-// <-----------------  Получение различных балансов ----------------->
+// <----------------- Получение различных балансов ----------------->
 
 // Отображение RATE
 async function displayRate() {
@@ -118,7 +112,7 @@ async function displayRate() {
 
     try {
       const contractRateElement = document.getElementById("contractRate");
-      contractRateElement.textContent = "Rate [eth/ptt]: " + wei2eth;
+      contractRateElement.innerHTML = "Rate [eth/ptt]<br>" + wei2eth;
     } catch (error) {
       console.log(error);
     }
@@ -140,7 +134,7 @@ async function displayTotalTokensInEth() {
       const totalTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();;
       const totalTokensInEth = totalTokens * wei2eth;
       const totalTokensInEthElement = document.getElementById("totalTokensInEth");
-      totalTokensInEthElement.textContent = "Total available tokens in eth: " + totalTokensInEth.toString();
+      totalTokensInEthElement.innerHTML = "Total available tokens in eth<br>" + totalTokensInEth.toString();
     } catch (error) {
       console.log(error);
     }
@@ -158,7 +152,7 @@ async function displayTotalFrozenTokens() {
     try {
       const totalFrozenTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();
       const totalFrozenTokensElement = document.getElementById("totalFrozenTokens");
-      totalFrozenTokensElement.textContent = "Total available tokens: " + totalFrozenTokens.toString();
+      totalFrozenTokensElement.innerHTML = "Total available tokens<br>" + totalFrozenTokens.toString();
     } catch (error) {
       console.log(error);
     }
@@ -169,15 +163,32 @@ async function displayTotalFrozenTokens() {
 
 // Сколько есть токенов у пользователя
 async function displayUserTokenBalance() {
+  // Проверка на вход в аккаунт MetaMask
+  const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+
+  if (accounts.length === 0) {
+    return;
+  }
+
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
     try {
-      const purchasedTokens = await contract.purchasedTokens(signer.getAddress());
-      const userTokensElement = document.getElementById("userTokens");
-      userTokensElement.textContent = "Token balance: " + purchasedTokens.toString();
+      const userAddress = accounts[0];
+
+      const signer = provider.getSigner();
+      const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
+
+      try {
+        const purchasedTokens = await contract.purchasedTokens(userAddress);
+        const userTokensElement = document.getElementById("userTokens");
+
+        // Отображаем поле только после успешного запроса и получения данных
+        userTokensElement.innerHTML = "Your token balance<br>" + purchasedTokens.toString();
+        userTokensElement.style.display = "block";
+      } catch (error) {
+        console.log(error);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -186,7 +197,14 @@ async function displayUserTokenBalance() {
   }
 }
 
-// Timer
+// Вызываем функцию при загрузке страницы
+document.addEventListener("DOMContentLoaded", function() {
+  displayUserTokenBalance();
+});
+
+
+
+// <----------------- TIMER ----------------->
 let daysElement = document.getElementById("days");
 let hoursElement = document.getElementById("hours");
 let minutesElement = document.getElementById("minutes");
@@ -235,26 +253,76 @@ function displayStatus(message) {
 }
 
 
-// <-----------------  ADMIN FUNCTION ----------------->
+// <----------------- ADMIN FUNCTION ----------------->
 
 async function burnTokens() {
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
-
     try {
-      const now = Math.floor(Date.now() / 1000); // текущее время в секундах
-      const burnT = await contract.withdrawTokens({ gasLimit: 3000000, value: 0});
-      await burnT.wait();
+      const userAddress = await signer.getAddress();
+      if (userAddress === OWNER_CONTRACT_ADDRESS_IDO) {
+        document.getElementById("burnTokensButton").style.display = "block";
+        const burnT = await contract.withdrawTokens({ gasLimit: 3000000, value: 0 });
+        await burnT.wait();
+      } else {
+        console.log("Unauthorized user");
+        // Можно скрыть кнопку или предоставить сообщение об ошибке
+        document.getElementById("burnTokensButton").style.display = "none";
+      }
     } catch (error) {
       console.log(error);
+      document.getElementById("burnTokensButton").style.display = "none";
     }
   } else {
     document.getElementById("burnTokensButton").innerHTML = "Please install MetaMask";
   }
 }
 
+
+// <----------------- CONVERTOR ----------------->
+
+
+document.addEventListener("DOMContentLoaded", async function () {
+  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+  const signer = provider.getSigner();
+  const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
+
+  const RATE = await contract.getRate();
+
+  // Получаем элементы формы
+  const etherInput = document.querySelector(".cryptoconverter__pay input");
+  const tokenOutput = document.querySelector(".cryptoconverter__receive input");
+  const buyButton = document.getElementById("purchaseTokensButton");
+
+  function updateTokens() {
+    // Получаем значение введенной суммы в ETH
+    const etherAmount = parseFloat(etherInput.value);
+
+    // Проверяем, является ли введенное значение числом
+    if (!isNaN(etherAmount) && etherAmount >= 0 || Math.abs(etherAmount) < Number.EPSILON) {
+      // Вычисляем количество токенов
+      const tokenAmount = etherAmount / RATE * 1000000000000000000;
+
+      // Выводим количество токенов в соответствующее поле
+      tokenOutput.value = tokenAmount;
+    }
+  }
+
+  // Добавляем обработчик события для поля ввода при вводе
+  etherInput.addEventListener("input", updateTokens);
+
+  // Добавляем обработчик события для поля ввода при изменении
+  etherInput.addEventListener("change", updateTokens);
+
+  // Добавляем обработчик события для кнопки
+  buyButton.addEventListener("click", async function () {
+    const etherAmount = parseFloat(etherInput.value);
+    await purchaseTokens(etherAmount);
+    console.log("Invest button clicked");
+  });
+});
 
 async function autoUpdateTokenBalances() {
   while (true) {
