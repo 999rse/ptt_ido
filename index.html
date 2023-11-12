@@ -3,15 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="icon" href="pic_site/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style.css">
-	<title>IDO PAGE</title>
+	<title>PTT</title>
 </head>
 <body>
 	<div class="wrapper">
 		<!-- head -->
-		<nav class="navbar" style="background-color: #1a3171;">
+		<nav class="navbar header_gradient">
 			<a class="navbar-brand">
 				<a class="navbar-brand header__logo gradient_logo_footer">PTT IDO</a>
 			</a>
@@ -26,18 +27,61 @@
 				</ul>
 			</div>
 			<div class="text-center">
-				<button type="button" class="btn mx-1 main-text-500 cryptoconverter__buybutton color_button_connect" id="connectButton" onclick="bundle.connect()">Connect Metamask</button>
+				<button type="button" class="btn mx-1 main-text-500-15 cryptoconverter__buybutton color_button_connect" id="connectButton" onclick="bundle.connect()">Connect Metamask</button>
+				<div class="btn-group">
+					<button class="btn btn-secondary btn-sm dropdown-toggle main-text-500 cryptoconverter__buybutton color_button_connect" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+					  ?
+					</button>
+					<ul class="dropdown-menu">
+					  СЮДА
+					</ul>
+				</div>
 			</div>
 		</nav>
+		<!-- main body -->
 		<main class="main">
+			<!-- big text -->
+			<from class="container_promo">
+				<div class="left-column-promo">
+				  <div class="row">
+					<div class="col">
+						<div class="container-fluid d-flex">
+							<div class="title-big-1">
+								POLYTECH
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="row">
+					<div class="col">
+						<div class="container-fluid d-flex elem-promo">
+							<div class="title-big-2">
+								TOKEN
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div class="row">
+					<div class="col">
+						<div class="container-fluid d-flex elem-promo">
+							<div class="title-big-3">
+								IDO
+							</div>
+						</div>
+					</div>
+				  </div>
+				</div>
+				<div class="right-column-promo">
+				  <img src="pic_site/ptt.png" alt="" class="image-promo">
+				</div>
+			</from>
 			<form class="values_block">
-				<div class="container-fluid">
-					<div class="cryptoconverter__body">
-						<div class="shadow p-1 mb-1 bg-body-tertiary rounded mx-2 main-text-500 gradient_values_block" id="contractRate"></div>
-						<div class="shadow p-1 mb-1 bg-body-tertiary rounded mx-2 main-text-500 gradient_values_block" id="totalTokensInEth"></div>
-						<div class="shadow p-1 mb-1 bg-body-tertiary rounded mx-2 main-text-500 gradient_values_block" id="totalFrozenTokens"></div>
-						<div class="shadow p-1 mb-1 bg-body-tertiary rounded mx-2 main-text-500 gradient_values_block"id="userTokens" ></div>
-						<!-- <div class="shadow p-1 mb-1 bg-body-tertiary rounded mx-2 main-text-500 gradient_values_block"id="totalFrozenTokens" ></div> -->
+				<div class="container-fluid d-flex justify-content-center">
+					<div class="hstack gap-3">
+						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="contractRate"></div>
+						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="totalTokensInEth"></div>
+						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="totalFrozenTokens"></div>
+						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="userTokens" style="display: none;"></div>
 					</div>
 				</div>
 			</form>
@@ -45,32 +89,32 @@
 				<div class="container-fluid">
 					<div class="cryptoconverter__body">
 						<div class="cryptoconverter__pay">
-							<div class="cryptoconverter__block-title main-text-500">Replenishment amount</div>
+							<div class="cryptoconverter__block-title main-text-500-18">Replenishment amount</div>
 								<div class="input-group mb-3">
-									<span class="input-group-text main-text-500">ETH</span>
+									<span class="input-group-text main-text-500-18">ETH</span>
 									<input type="text" class="form-control" placeholder="Amount of ether" aria-label="Ether">
 							  	</div>
 						</div>
 						<div class="cryptoconverter__receive">
-							<div class="cryptoconverter__block-title main-text-500">You will receive</div>
+							<div class="cryptoconverter__block-title main-text-500-18">You will receive</div>
 								<div class="input-group input-group-lg">
 									<div class="input-group">
 										<input type="text" class="form-control" aria-label="PoltechToken" disabled>
-										<span class="input-group-text main-text-500">PTT</span>
+										<span class="input-group-text main-text-500-18">PTT</span>
 									</div>
 							  	</div>
 						</div>
 					</div>
 					<div class="d-grid gap-2 col-6 mx-auto">
-						<button class="btn btn-info main-text-500 cryptoconverter__buybutton" type="button" id="purchaseTokensButton" onclick="bundle.purchaseTokens()">Invest</button>
-					  </div>
+						<button class="btn color_button_invest main-text-500-18 cryptoconverter__buybutton" type="button" id="purchaseTokensButton" onclick="bundle.purchaseTokens()">Invest</button>
+					</div>
 				</div>
 			</form>
-			<button type="button" class="btn btn-light mx-1 main-text-500" id="burnTokensButton" onclick="bundle.burnTokens()">Burn tokens ADMIN</button>
+			<button type="button" class="btn cryptoconverter__buybutton color_button_connect none mx-1 main-text-500" id="burnTokensButton" onclick="bundle.burnTokens()">Burn tokens ADMIN</button>
 			<button type="button" class="btn btn-light mx-1 main-text-500" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
 		</main>
 		<footer class="footer">
-			<div class="container gradient_logo_footer main-text-500">
+			<div class="container gradient_logo_footer main-text-500-15">
 				© 2023.<a href="https://github.com/999rse" target="_blank" class="main-text-500">
 					Github @999rse.
 				</a> 

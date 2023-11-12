@@ -1,11 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Onest:wght@500;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@500;700;900&display=swap');
 
-.main-text-500 {
+.main-text-500-15 {
     font-family: 'Onest', sans-serif;
     font-weight: 500;
     font-size: 15px;
+}
+.main-text-500-18 {
+    font-family: 'Onest', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+}
+.main-text-700 {
+    font-family: 'Onest', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
 }
 
 .main-text-900 {
@@ -67,8 +77,9 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	margin: 0 auto;
 	padding: 0 10px;
 }
-.header{
-	background-color: #151f80;
+.navbar.header_gradient{
+	background-color: radial-gradient(ellipse at top, #ffff, transparent),
+						radial-gradient(ellipse at bottom, #00bbff, transparent);
 }
 .header__body{
 	padding: 10px 0;
@@ -78,28 +89,24 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	font-size: 25px;
 }
 .gradient_logo_footer {
-	background-image: linear-gradient(to right, #ff8a00, #e52e71);
+	background-image: linear-gradient(to right, #ff4916, #ff9800);
 	color: transparent;
     -webkit-background-clip: text;
   	-webkit-text-fill-color: transparent;
 }
 .main{
 	flex: 1 1 auto;
-	background: url('../pic_site/background.png');
+	background-image: radial-gradient(ellipse at top, #ffff, transparent),
+						radial-gradient(ellipse at bottom, #00bbff, transparent);
 	background-size: cover;
     background-position: center;
     background-attachment: fixed;
-	
 }
 .footer{
-	background-color: #151f80;
+	background-color: #fff;
 	padding: 10px 0;
 	color: #fff;
 	text-align: center;
-}
-.values_block{
-	width: 1000px;
-	margin: 10px auto 0 auto;
 }
 .gradient_values_block{
 	background-image: linear-gradient(to left, #e52e71, #2e71e5);
@@ -112,7 +119,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	margin: 50px auto 0 auto;
 }
 .cryptoconverter__body{
-	background: #151f80;
+	background: #e2e2e3;
 	padding: 10px 15px;
 	display: flex;
 	justify-content: space-between;
@@ -145,10 +152,117 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	box-shadow: 0px 4px 17px 0px rgba(34, 60, 80, 0.2);
 }
 .color_button_connect {
-	background-image: linear-gradient(to left, #ff8a00, #e52e71);
+	background-image: linear-gradient(to left, #ff4916, #ff9800);
 	color: #fff; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убрать границу кнопки */
     border-radius: 15px; /* Скруглить углы кнопки */
     cursor: pointer; /* Изменить курсор при наведении на кнопку */
 }
+.color_button_invest {
+	background-image: linear-gradient(to left, #ff4916, #ff9800);
+	color: #fff; /* Цвет текста кнопки */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    border: none; /* Убрать границу кнопки */
+    border-radius: 15px; /* Скруглить углы кнопки */
+    cursor: pointer; /* Изменить курсор при наведении на кнопку */
+}
+.color_button_invest:hover {
+	background-color: #00bbff;
+}
+.color_button_invest:active {
+	background-color: #00bbff;
+}
+.hstack {
+	display: flex;
+	flex-direction: row;
+  }
+.values_block {
+	display: flex;
+	justify-content: center;
+	margin: 55px auto 0 auto;
+}
+
+.container_promo {
+	display: flex;
+	align-items: flex-start; /* Выравнивание по верхнему краю */
+	width: 1700px;
+	margin: 55px auto 0 auto;
+}
+.elem-promo{
+	margin: 10px auto 0 auto;
+}
+  
+.left-column-promo {
+	flex: 1; /* Левая часть занимает всю доступную ширину */
+	padding: 20px; /* Отступ для визуального разделения */
+}
+  
+.right-column-promo {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+  }
+  
+.full-width-image {
+	position: center;
+	width: 100%; /* Изображение занимает всю ширину правой части */
+}
+.title-big-1{
+	background: radial-gradient(ellipse at top, #bb49ff, transparent),
+            radial-gradient(ellipse at bottom, #3a16fe, transparent);
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 100px;
+	border-radius: 20px;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+.title-big-2{
+	background: radial-gradient(ellipse at top, #bb49ff, transparent),
+            radial-gradient(ellipse at bottom, #3a16fe, transparent);
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 100px;
+	border-radius: 20px;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+.title-big-3{
+	background: radial-gradient(ellipse at top, #bb49ff, transparent),
+            radial-gradient(ellipse at bottom, #3a16fe, transparent);
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 100px;
+	border-radius: 20px;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+.image-promo{
+	max-width: 55%; /* Изображение не будет превышать ширину контейнера */
+  	max-height: 50%; /* Изображение не будет превышать высоту контейнера */
+  	display: block; /* Убедитесь, что изображение отображается как блочный элемент */
+  	margin: auto; /* Центрирование изображения внутри контейнера */
+  	
+  	border-radius: 23px; /* Радиус скругления углов */
+	margin: 30px auto 0 auto;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+  
