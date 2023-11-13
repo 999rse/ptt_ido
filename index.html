@@ -26,16 +26,17 @@
 					  </div>
 				</ul>
 			</div>
+			<div class="btn-group " id="admin_functions" style="display: none;">
+				<button type="button" class="btn dropdown-toggle admin_actions_main main-text-500-15" data-bs-toggle="dropdown" aria-expanded="false">
+				  Admin actions
+				</button>
+				<ul class="dropdown-menu">
+					<button type="button" class="btn cryptoconverter__buybutton admin_actions_sub none mx-1 main-text-500-15 text-center" id="burnTokensButton_admin" onclick="bundle.burnTokens()" style="display: none;">Burn tokens</button>
+					<button type="button" class="btn cryptoconverter__buybutton admin_actions_sub none mx-1 main-text-500-15" id="withdrawEtherButton_admin" onclick="bundle.withdrawEther2acc()" style="display: none;">Withdraw ether</button>
+				</ul>
+			</div>
 			<div class="text-center">
 				<button type="button" class="btn mx-1 main-text-500-15 cryptoconverter__buybutton color_button_connect" id="connectButton" onclick="bundle.connect()">Connect Metamask</button>
-				<div class="btn-group">
-					<button class="btn btn-secondary btn-sm dropdown-toggle main-text-500 cryptoconverter__buybutton color_button_connect" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					  ?
-					</button>
-					<ul class="dropdown-menu">
-					  СЮДА
-					</ul>
-				</div>
 			</div>
 		</nav>
 		<!-- main body -->
@@ -110,8 +111,10 @@
 					</div>
 				</div>
 			</form>
-			<button type="button" class="btn cryptoconverter__buybutton color_button_connect none mx-1 main-text-500" id="burnTokensButton" onclick="bundle.burnTokens()">Burn tokens ADMIN</button>
-			<button type="button" class="btn btn-light mx-1 main-text-500" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
+
+			
+			
+			<button type="button" class="btn color_button_connect mx-1 main-text-500" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
 		</main>
 		<footer class="footer">
 			<div class="container gradient_logo_footer main-text-500-15">

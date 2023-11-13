@@ -1,11 +1,10 @@
 const { ethers } = require("ethers");
 
 // OWNER CONTRACT ADDRESS IDO !!!
-const OWNER_CONTRACT_ADDRESS_IDO = "0x7F671EaA754651b4e32087e82b85CBb930659f73";
-
+const OWNER_CONTRACT_ADDRESS_IDO = "0xB9C15e5BEA07AA2FD486dc0A62726fEb38dE24eD".toLowerCase();
 
 // Адрес контракта IDO и его ABI
-const CONTRACT_ADDRESS_IDO = "0xbE2176Acc8554bF14498E985334bBE47920b5FAB"
+const CONTRACT_ADDRESS_IDO = "0xF0303e9aaA1FF177d40e9A84e45C761fDc4Da539"
 const ABI_IDO = require('./abi/abi_ido_token.json');
 
 // Адрес контракта токена и его ABI
@@ -16,15 +15,11 @@ const ABI_TOKEN = require('./abi/abi_token.json');
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
     try {
-      // Запрашиваем доступ к аккаунту
       const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 
       if (accounts.length > 0) {
         const userAddress = accounts[0];
-        // Отображаем сокращенный адрес пользователя
         document.getElementById("connectButton").innerHTML = shortenAddress(userAddress);
-
-        // Сохраняем адрес пользователя в localStorage
         localStorage.setItem("userAddress", userAddress);
       }
     } catch (error) {
@@ -48,7 +43,6 @@ const savedUserAddress = localStorage.getItem("userAddress");
 if (savedUserAddress) {
   document.getElementById("connectButton").innerHTML = shortenAddress(savedUserAddress);
 }
-
 // Обработчик для кнопки подключения
 document.getElementById("connectButton").addEventListener("click", connect);
 
@@ -255,28 +249,46 @@ function displayStatus(message) {
 
 // <----------------- ADMIN FUNCTION ----------------->
 
+// Status of admin's buttons
+if (savedUserAddress === OWNER_CONTRACT_ADDRESS_IDO){
+  document.getElementById("admin_functions").style.display = "block";
+  document.getElementById("burnTokensButton_admin").style.display = "block";
+  document.getElementById("withdrawEtherButton_admin").style.display = "block";
+} else {
+  document.getElementById("admin_functions").style.display = "none";
+  document.getElementById("burnTokensButton_admin").style.display = "none";
+  document.getElementById("withdrawEtherButton_admin").style.display = "none";
+}
+
 async function burnTokens() {
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
     try {
-      const userAddress = await signer.getAddress();
-      if (userAddress === OWNER_CONTRACT_ADDRESS_IDO) {
-        document.getElementById("burnTokensButton").style.display = "block";
-        const burnT = await contract.withdrawTokens({ gasLimit: 3000000, value: 0 });
-        await burnT.wait();
-      } else {
-        console.log("Unauthorized user");
-        // Можно скрыть кнопку или предоставить сообщение об ошибке
-        document.getElementById("burnTokensButton").style.display = "none";
-      }
+      const burnT = await contract.withdrawTokens({ gasLimit: 3000000, value: 0 });
+      await burnT.wait();
     } catch (error) {
       console.log(error);
-      document.getElementById("burnTokensButton").style.display = "none";
     }
   } else {
-    document.getElementById("burnTokensButton").innerHTML = "Please install MetaMask";
+    document.getElementById("burnTokensButton_admin").innerHTML = "Please install MetaMask";
+  }
+}
+
+async function withdrawEther2acc() {
+  if (typeof window.ethereum !== "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
+    try {
+      const burnT = await contract.withdrawEther({ gasLimit: 3000000, value: 0 });
+      await burnT.wait();
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    document.getElementById("withdrawEtherButton_admin").innerHTML = "Please install MetaMask";
   }
 }
 
@@ -349,6 +361,6 @@ module.exports = {
   displayTotalTokensInEth,
   displayUserTokenBalance,
   displayTotalFrozenTokens,
-  //admin
   burnTokens,
+  withdrawEther2acc,
 };
