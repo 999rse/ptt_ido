@@ -156,7 +156,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	color: #fff; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убрать границу кнопки */
-    border-radius: 15px; /* Скруглить углы кнопки */
+    border-radius: 11px; /* Скруглить углы кнопки */
     cursor: pointer; /* Изменить курсор при наведении на кнопку */
 }
 .color_button_invest {
@@ -164,7 +164,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	color: #fff; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убрать границу кнопки */
-    border-radius: 15px; /* Скруглить углы кнопки */
+    border-radius: 11px; /* Скруглить углы кнопки */
     cursor: pointer; /* Изменить курсор при наведении на кнопку */
 }
 .color_button_invest:hover {
@@ -218,6 +218,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	font-family: 'Onest', sans-serif;
     font-weight: 900;
     font-size: 100px;
+	padding: 5px 5px;
 	border-radius: 20px;
 
 	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
@@ -232,6 +233,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	font-family: 'Onest', sans-serif;
     font-weight: 900;
     font-size: 100px;
+	padding: 5px 5px;
 	border-radius: 20px;
 
 	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
@@ -246,6 +248,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	font-family: 'Onest', sans-serif;
     font-weight: 900;
     font-size: 100px;
+	padding: 5px 5px;
 	border-radius: 20px;
 
 	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
@@ -265,4 +268,20 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
 	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
 }
-  
+.admin_actions_main{
+	background: linear-gradient(to left, #bb49ff, #00bbff);
+	color: #fff; /* Цвет текста кнопки */
+    padding: 10px 10px; /* Отступы внутри кнопки */
+    border: none; /* Убрать границу кнопки */
+    border-radius: 11px; /* Скруглить углы кнопки */
+    cursor: pointer; /* Изменить курсор при наведении на кнопку */
+}
+.admin_actions_sub{
+	background: #00bbff;
+	color: #fff; /* Цвет текста кнопки */
+    padding: 2px 2px; /* Отступы внутри кнопки */
+    border: none; /* Убрать границу кнопки */
+    border-radius: 7px; /* Скруглить углы кнопки */
+    cursor: pointer; /* Изменить курсор при наведении на кнопку */
+	margin: auto;
+}
