@@ -31,8 +31,8 @@
 				  Admin actions
 				</button>
 				<ul class="dropdown-menu">
-					<button type="button" class="btn cryptoconverter__buybutton admin_actions_sub none mx-1 main-text-500-15 text-center" id="burnTokensButton_admin" onclick="bundle.burnTokens()" style="display: none;">Burn tokens</button>
-					<button type="button" class="btn cryptoconverter__buybutton admin_actions_sub none mx-1 main-text-500-15" id="withdrawEtherButton_admin" onclick="bundle.withdrawEther2acc()" style="display: none;">Withdraw ether</button>
+					<button type="button" class="btn admin_actions_sub none mx-auto main-text-500-15" id="burnTokensButton_admin" onclick="bundle.burnTokens()" style="display: none;">Burn tokens</button>
+					<button type="button" class="btn admin_actions_sub none mx-auto main-text-500-15" id="withdrawEtherButton_admin" onclick="bundle.withdrawEther2acc()" style="display: none;">Withdraw ether</button>
 				</ul>
 			</div>
 			<div class="text-center">
@@ -47,7 +47,7 @@
 				  <div class="row">
 					<div class="col">
 						<div class="container-fluid d-flex">
-							<div class="title-big-1">
+							<div class="title-big-1 animated-big-1">
 								POLYTECH
 							</div>
 						</div>
@@ -56,7 +56,7 @@
 				  <div class="row">
 					<div class="col">
 						<div class="container-fluid d-flex elem-promo">
-							<div class="title-big-2">
+							<div class="title-big-2 animated-big-2">
 								TOKEN
 							</div>
 						</div>
@@ -65,7 +65,7 @@
 				  <div class="row">
 					<div class="col">
 						<div class="container-fluid d-flex elem-promo">
-							<div class="title-big-3">
+							<div class="title-big-3 animated-big-3">
 								IDO
 							</div>
 						</div>
@@ -73,11 +73,18 @@
 				  </div>
 				</div>
 				<div class="right-column-promo">
-				  <img src="pic_site/ptt.png" alt="" class="image-promo">
+					<div class="animated-image" id="image"></div>
 				</div>
 			</from>
+			<form class="text-promo">
+				<p id="animatable" class="text-center title-promo-shadow title-promo-sub">
+					Добро пожаловать в мир Polytech Token - инновационной криптовалюты, созданной <br> для поддержки образовательных
+					и технологических инициатив Polytech. Наш токен <br> представляет собой ключ к будущему, где образование
+					взаимодействует с блокчейном, открывая новые горизонты для студентов, преподавателей и инноваторов.
+				</p>
+			</form>
 			<form class="values_block">
-				<div class="container-fluid d-flex justify-content-center">
+				<div class="container-fluid d-flex justify-content-center" id="moving-block">
 					<div class="hstack gap-3">
 						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="contractRate"></div>
 						<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="totalTokensInEth"></div>
@@ -88,6 +95,9 @@
 			</form>
 			<form class="cryptoconverter">
 				<div class="container-fluid">
+					<div class="type_convertor text-center title-promo-shadow">
+						BUY TOKENS
+					</div>
 					<div class="cryptoconverter__body">
 						<div class="cryptoconverter__pay">
 							<div class="cryptoconverter__block-title main-text-500-18">Replenishment amount</div>
@@ -108,13 +118,27 @@
 					</div>
 					<div class="d-grid gap-2 col-6 mx-auto">
 						<button class="btn color_button_invest main-text-500-18 cryptoconverter__buybutton" type="button" id="purchaseTokensButton" onclick="bundle.purchaseTokens()">Invest</button>
+						<button type="button" class="btn color_button_connect mx-1 main-text-500-18" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
 					</div>
 				</div>
 			</form>
-
-			
-			
-			<button type="button" class="btn color_button_connect mx-1 main-text-500" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
+			<div class="empty-block-150"></div>
+			<div class="split-block">
+				<div class="left-half">
+				  <div class="github-img justify-content-center">
+					<img src="pic_site/github.png" alt="qr-code gihub" class="github-img">
+				  </div>
+				</div>
+				<div class="right-half">
+					<div class="github-text">
+						ХОЧЕШЬ ТОЖЕ СДЕЛАТЬ СВОЙ ТОКЕН И ВЫЙТИ НА БИРЖУ?
+					</div>
+					<div class="github-text-extra text-center">
+				  		FORK'ай!
+					</div>
+				</div>
+			  </div>
+			  <div class="empty-block-150"></div>
 		</main>
 		<footer class="footer">
 			<div class="container gradient_logo_footer main-text-500-15">
@@ -126,6 +150,7 @@
 		</footer>
 	</div>
 </body>
+<script src="./css/animation.js" type="text/javascript"></script>
 <script src="./dist/bundle.js" type="text/javascript"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </html>

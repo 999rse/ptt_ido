@@ -21,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const movingBlock = document.getElementById('moving-block');
   
     document.addEventListener('mousemove', function(e) {
-      const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
-      const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+      const xAxis = (window.innerWidth / 2 - e.pageX) / 40;
+      const yAxis = (window.innerHeight / 2 - e.pageY) / 40;
   
       movingBlock.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
     });

@@ -103,8 +103,8 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
     background-attachment: fixed;
 }
 .footer{
-	background-color: #fff;
-	padding: 10px 0;
+	background-color: #00bbff76;
+	padding: 10px -10;
 	color: #fff;
 	text-align: center;
 }
@@ -119,7 +119,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	margin: 50px auto 0 auto;
 }
 .cryptoconverter__body{
-	background: #e2e2e3;
+	background: linear-gradient(to right, transparent, #2e71e5, transparent);
 	padding: 10px 15px;
 	display: flex;
 	justify-content: space-between;
@@ -160,7 +160,8 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
     cursor: pointer; /* Изменить курсор при наведении на кнопку */
 }
 .color_button_invest {
-	background-image: linear-gradient(to left, #ff4916, #ff9800);
+	display: inline-block;
+	background: linear-gradient(to left, #ff4916, #ff9800);
 	color: #fff; /* Цвет текста кнопки */
     padding: 10px 20px; /* Отступы внутри кнопки */
     border: none; /* Убрать границу кнопки */
@@ -204,7 +205,7 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 	align-items: center;
 	justify-content: center;
 	position: relative;
-  }
+}
   
 .full-width-image {
 	position: center;
@@ -261,12 +262,34 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
   	display: block; /* Убедитесь, что изображение отображается как блочный элемент */
   	margin: auto; /* Центрирование изображения внутри контейнера */
   	
-  	border-radius: 23px; /* Радиус скругления углов */
+  	border-radius: 23px;
 	margin: 30px auto 0 auto;
 
 	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
 	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
 	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+.text-promo{
+	display: flex;
+	width: 990px;
+	margin: 100px auto 0 auto;
+	justify-content: center;
+  	align-items:center;
+}
+.title-promo-sub{
+	font-family: 'Onest', sans-serif;
+    font-weight: 700;
+    font-size: 22px;
+	padding: 5px 5px;
+	border-radius: 20px;
+
+	background-image: linear-gradient(to right, #bb49ff, #3a16fe);
+	color: transparent;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+}
+.title-promo-shadow {
+    text-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
 }
 .admin_actions_main{
 	background: linear-gradient(to left, #bb49ff, #00bbff);
@@ -285,3 +308,116 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
     cursor: pointer; /* Изменить курсор при наведении на кнопку */
 	margin: auto;
 }
+.type_convertor{
+	background-image: linear-gradient(to right, transparent, #bb49ff, transparent);
+	color: transparent;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 70px;
+	padding: 5px 5px;
+	border-radius: 20px;
+}
+.empty-block-150 {
+	width: auto;
+    height: 150px;
+    background-color: transparent;
+	/* border: 2px dashed #ccc; */
+}
+.split-block {
+	display: flex;
+	height: 500px; /* Высота блока */
+}
+.left-half {
+	flex: 1.40;
+}
+  
+.right-half {
+	flex: 1;
+}
+.github-text{
+	background-image: radial-gradient(ellipse at top, #bb49ff, transparent),
+            radial-gradient(ellipse at bottom, #3a16fe, transparent);
+	color: transparent;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 100px;
+	padding: 5px 5px;
+	border-radius: 20px;
+	line-height: 0.95;
+	letter-spacing: -7px;
+}
+.github-text-extra{
+	background-image: radial-gradient(ellipse at top, #ff4916, transparent),
+            radial-gradient(ellipse at bottom, #ff9800, transparent);
+	color: transparent;
+    -webkit-background-clip: text;
+  	-webkit-text-fill-color: transparent;
+	color: #ffffff;
+	display: block;
+	font-family: 'Onest', sans-serif;
+    font-weight: 900;
+    font-size: 100px;
+	padding: 5px 5px;
+	border-radius: 20px;
+	line-height: 0.95;
+	letter-spacing: -7px;
+}
+.github-img{
+	width: 512px;
+	height: 512px;
+	margin: 3px auto 0 auto;
+	border-radius: 18px;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+}
+
+
+/* ANIMATIONS */
+.animated-image {
+	width: 512px;
+	height: 512px;
+	margin: 30px auto 0 auto;
+	border-radius: 23px;
+
+	-webkit-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	-moz-box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+	box-shadow: 0 0.5rem 1rem rgba(34, 60, 80, 0.2);
+
+	background: url('../pic_site/ptt.png') center center/cover;
+	opacity: 0;
+	transform: translateX(30px);
+	animation: fadeIn 2s forwards;
+	transition: transform 0.2s ease-out;
+}
+.animated-big-1 {
+	opacity: 0; /* Изначально изображение невидимо */
+	transform: translateX(-30px);
+	animation: fadeIn 1s forwards; /* Название анимации, продолжительность и состояние после завершения */
+}
+.animated-big-2 {
+	opacity: 0; /* Изначально изображение невидимо */
+	transform: translateX(-30px);
+	animation: fadeIn 1.5s forwards; /* Название анимации, продолжительность и состояние после завершения */
+}
+.animated-big-3 {
+	opacity: 0; /* Изначально изображение невидимо */
+	transform: translateX(-30px);
+	animation: fadeIn 2s forwards; /* Название анимации, продолжительность и состояние после завершения */
+}
+  
+@keyframes fadeIn {
+	to {
+  		opacity: 1; /* Конечное значение прозрачности */
+		transform: translateY(0);
+	}
+} 
