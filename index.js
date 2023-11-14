@@ -6,7 +6,7 @@ const PROVIDER_HOST = "http://127.0.0.1:8545";
 const OWNER_CONTRACT_ADDRESS_IDO = "0xbC7AC944983a6F641f0620efD76163D7E8F83617".toLowerCase();
 
 // Адрес контракта IDO и его ABI
-const CONTRACT_ADDRESS_IDO = "0xE8cB3cF37A20390583FDf65E46D9B58727D1983F"
+const CONTRACT_ADDRESS_IDO = "0xDAFd26642c8b0e14c9bf4Dd692f87e6D65724C6c";
 const ABI_IDO = require('./abi/abi_ido_token.json');
 
 // Адрес контракта токена и его ABI
@@ -351,18 +351,17 @@ async function autoUpdateStateButtons() {
     const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
-    // Button Invest
+    // Button Invest and Withdraw tokens
     const totalFrozenTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();
     const endTime = await contract.endTime();
     const now = Math.floor(Date.now() / 1000);
 
     if (now > endTime || totalFrozenTokens.toString() === "0") {
       document.getElementById("purchaseTokensButton").disabled = true;
-    }
-
-    // Button Withdraw tokens
-    if (now < endTime || totalFrozenTokens.toString() !== "0") {
-      document.getElementById("purchaseTokensButton").disabled = true;
+      document.getElementById("withdrawTokensButton").disabled = false;
+    } else{
+      document.getElementById("purchaseTokensButton").disabled = false;
+      document.getElementById("withdrawTokensButton").disabled = true;
     }
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
