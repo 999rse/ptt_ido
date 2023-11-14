@@ -64,34 +64,47 @@ In first terminal load local blockhain
 ganache --networkId 5777
 ```
 
-Before deploy setup files in dir _migration_:
+Before deploy setup `deploy_param.js`:
+```
+{
+    "INITIAL_OWNER_TOKEN_CONTRACT": 0,
+    "TOTAL_SUPPLY": "78000000",
 
-* 2_deploy_token.js:
-    - initialOwner - Owner account (by default the first in ganache)
-    - totalSupply - How many tokens to issue in total
-* 3_deploy_ido.js:
-    - NTransferTokens - Number of tokens to be transferred to the IDO contract account (must be <= totalSupply)
-    - rate - Specified in [wei](https://www.investopedia.com/terms/w/wei.asp). In brief, how much ether must be given to get one token. [Convertor](https://eth-converter.com/) ether to wei.
-    - startTime - Time when start IDO. In UNIX Time.
-    - endTime - Time when end IDO. In UNIX Time.
-    - _Extention_: you can change owner this contract in raw:
-        ```javascript
-        const newOwner = accounts[0];
-        ``` 
+    "INITIAL_OWNER_IDO_CONTRACT": 0,
+    "NUMBER_OF_TOKENS_TRANSFER": "100200",
+    "RATE": "100000000000000",
+    "START_TIME_IDO": 1699877123,
+    "END_TIME_IDO": 1699891523
+}
+```
+* Parameters for 2_deploy_token.js:
+    - INITIAL_OWNER_TOKEN_CONTRACT - Owner account (by default the first in ganache)
+    - TOTAL_SUPPLY - How many tokens to issue in total
+* Parameters for 3_deploy_ido.js:
+    - NUMBER_OF_TOKENS_TRANSFER - Number of tokens to be transferred to the IDO contract account (must be <= totalSupply)
+    - RATE - Specified in [wei](https://www.investopedia.com/terms/w/wei.asp). In brief, how much ether must be given to get one token. [Convertor](https://eth-converter.com/) ether to wei.
+    - START_TIME_IDO - Time when start IDO. In UNIX Time.
+    - END_TIME_IDO - Time when end IDO. In UNIX Time.
+    - INITIAL_OWNER_IDO_CONTRACT - _Extention_: you can change owner this contract
 
 In the second terminal start migration
 ```bash
-bash executed/migrate.bash
+bash exec/migrate.bash
 ```
 
-Now, in the second you can see that 2 contracts are deployed. Put contract addres in `3_deploy_ido.js` to index.js in field `CONTRACT_ADDRESS_IDO`.
+Now, in the second you can see that 2 contracts are deployed. From console:
+1. Put contract address from section `3_deploy_ido.js` to file `index.js` in field `CONTRACT_ADDRESS_IDO`.
+2. Put the IDO contract owner from section `3_deploy_ido.js` to file `index.js` in field `OWNER_CONTRACT_ADDRESS_IDO`.
 
 Here use build page
 ```bash
 yarn build
 ```
-
-Go to http://127.0.0.1:5501 in your browser.
+Now up http-server
+```bash
+yarn http-server -p 8088
+```
+Go to http://127.0.0.1:8088 in your browser.
 
 ### Front (Metamask)
 [Official meatamask guide: How to add a custom network RPC](https://support.metamask.io/hc/en-us/articles/360043227612-How-to-add-a-custom-network-RPC)
@@ -107,4 +120,4 @@ Then fill fields as photo down and save.
 Import an account: [Official metamask guide](https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-Account)
 
 
-## Use, debug, Rock and Roll!
+## Use, edit, Rock and Roll!
