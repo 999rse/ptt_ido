@@ -1,10 +1,10 @@
 const { ethers } = require("ethers");
 
 // OWNER CONTRACT ADDRESS IDO !!!
-const OWNER_CONTRACT_ADDRESS_IDO = "0xB9C15e5BEA07AA2FD486dc0A62726fEb38dE24eD".toLowerCase();
+const OWNER_CONTRACT_ADDRESS_IDO = "0xbC7AC944983a6F641f0620efD76163D7E8F83617".toLowerCase();
 
 // Адрес контракта IDO и его ABI
-const CONTRACT_ADDRESS_IDO = "0xF0303e9aaA1FF177d40e9A84e45C761fDc4Da539"
+const CONTRACT_ADDRESS_IDO = "0xE8cB3cF37A20390583FDf65E46D9B58727D1983F"
 const ABI_IDO = require('./abi/abi_ido_token.json');
 
 // Адрес контракта токена и его ABI
@@ -87,8 +87,7 @@ async function withdrawTokens() {
       console.log(error);
     }
   } else {
-    document.getElementById("withdrawTokensButton").innerHTML =
-      "Please install MetaMask";
+    document.getElementById("withdrawTokensButton").innerHTML = "Please install MetaMask";
   }
 }
 
@@ -197,8 +196,9 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
-
 // <----------------- TIMER ----------------->
+
+
 let daysElement = document.getElementById("days");
 let hoursElement = document.getElementById("hours");
 let minutesElement = document.getElementById("minutes");
@@ -211,14 +211,17 @@ async function updateTimer() {
     const startTime = await contract.startTime();
     const endTime = await contract.endTime();
 
+    const totalFrozenTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();
+    console.log(totalFrozenTokens.toString())
+
     const now = Math.floor(Date.now() / 1000);  // Текущее время в секундах
 
     if (now < startTime) {
         // IDO еще не начался
         displayTimeRemaining(startTime - now);
         displayStatus("IDO will start in:");
-    } else if (now < endTime) {
-        // IDO идет
+    } else if (now < endTime && totalFrozenTokens.toString() !== "0") {
+        // IDO идет или токены не закончились
         displayTimeRemaining(endTime - now);
         displayStatus("IDO will end in:");
     } else {
@@ -248,6 +251,7 @@ function displayStatus(message) {
 
 
 // <----------------- ADMIN FUNCTION ----------------->
+
 
 // Status of admin's buttons
 if (savedUserAddress === OWNER_CONTRACT_ADDRESS_IDO){
