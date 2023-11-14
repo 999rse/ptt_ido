@@ -24,11 +24,6 @@ contract IDOToken is Ownable {
         endTime = _endTime;
     }
 
-    modifier duringIDO() {
-        require(block.timestamp >= startTime && block.timestamp <= endTime, "IDO is not active");
-        _;
-    }
-
     function getBalanceToken() public view returns (uint balance) {
         balance = TOKEN.balanceOf(address(this));
     }
@@ -52,18 +47,20 @@ contract IDOToken is Ownable {
     }
 
     function withdrawTokens() external onlyOwner {
-        require(block.timestamp > endTime, "IDO is still active");
+        require(block.timestamp > endTime || getBalanceToken() == totalFrozenTokens, "IDO is still active or not all tokens are sold");
         require(getBalanceToken() > 0, "Not enough tokens");
         TOKEN.transfer(owner(), getBalanceToken() - totalFrozenTokens);
     }
 
     function withdrawEther() external onlyOwner {
-        require(block.timestamp > endTime, "IDO is still active");
+        require(block.timestamp > endTime || getBalanceToken() == totalFrozenTokens, "IDO is still active or not all tokens are sold");
         require(getBalanceEther() > 0, "Not enough ether");
         payable(owner()).transfer(getBalanceEther());
     }
 
-    function purchaseTokens() external duringIDO payable {
+    function purchaseTokens() external payable {
+        require(block.timestamp >= startTime, "IDO is not active");
+        require(getBalanceToken() != totalFrozenTokens, "All tokens are sold");
         require(msg.value > 0, "Must send ETH to purchase tokens");
         uint tokenAmount = msg.value / RATE;
         require(getBalanceToken() >= tokenAmount, "Not enough tokens");
@@ -78,7 +75,7 @@ contract IDOToken is Ownable {
     }
 
     function claimPurchasedTokens() external {
-        require(block.timestamp > endTime, "IDO is still active");
+        require(block.timestamp > endTime || getBalanceToken() == totalFrozenTokens, "IDO is still active or not all tokens are sold");
         uint tokenAmount = purchasedTokens[msg.sender];
         require(tokenAmount > 0, "No purchased tokens for the sender");
 
