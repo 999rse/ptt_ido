@@ -1,5 +1,7 @@
 const { ethers } = require("ethers");
 
+const PROVIDER_HOST = "http://127.0.0.1:8545";
+
 // OWNER CONTRACT ADDRESS IDO !!!
 const OWNER_CONTRACT_ADDRESS_IDO = "0xbC7AC944983a6F641f0620efD76163D7E8F83617".toLowerCase();
 
@@ -48,6 +50,8 @@ document.getElementById("connectButton").addEventListener("click", connect);
 
 
 // Покупка токенов в eth
+// Обработчик кнопки: раздел CONVERTOR
+// Обработчик состояния кнопки: autoUpdateStateButtons
 async function purchaseTokens(etherAmount) {
   if (typeof window.ethereum !== "undefined") {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -55,25 +59,21 @@ async function purchaseTokens(etherAmount) {
       const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
       try {
-          const availableFrozenTokens = await contract.getBalanceToken();
-          const transaction = await contract.purchaseTokens({ value: ethers.utils.parseEther(String(etherAmount)) });
-          await transaction.wait();
+        const transaction = await contract.purchaseTokens({ value: ethers.utils.parseEther(String(etherAmount)) });
+        await transaction.wait();
 
-          // После успешной покупки, обновляем информацию о балансе и замороженных токенах
-          displayUserTokenBalance();
-          // Проверяем, остались ли еще замороженные токены после покупки
-          if (availableFrozenTokens - etherAmount <= 0) {
-              document.getElementById("purchaseTokensButton").disabled = true; // Отключаем кнопку, если замороженных токенов не осталось
-          }
+        // После успешной покупки, обновляем информацию о балансе и замороженных токенах
+        displayUserTokenBalance();
       } catch (error) {
-          console.log(error);
+        console.log(error);
       }
   } else {
-      document.getElementById("purchaseTokensButton").innerHTML = "Please install MetaMask";
+    document.getElementById("purchaseTokensButton").innerHTML = "Please install MetaMask";
   }
 }
 
 // Вывод токенов на кошелек MetaMask, после окончания IDO
+// Обработчик состояния кнопки: autoUpdateStateButtons
 async function withdrawTokens() {
   if (typeof window.ethereum !== "undefined") {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -96,7 +96,7 @@ async function withdrawTokens() {
 // Отображение RATE
 async function displayRate() {
   if (typeof window.ethereum !== "undefined") {
-    const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+    const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
@@ -116,7 +116,7 @@ async function displayRate() {
 // Сколько всего доступно токенов в eth
 async function displayTotalTokensInEth() {
   if (typeof window.ethereum !== "undefined") {
-    const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+    const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
@@ -138,7 +138,7 @@ async function displayTotalTokensInEth() {
 // Сколько всего доступно токенов для продажи (показывает сколько токенов не заморожено)
 async function displayTotalFrozenTokens() {
   if (typeof window.ethereum !== "undefined") {
-    const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+    const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
@@ -205,14 +205,13 @@ let minutesElement = document.getElementById("minutes");
 let statusElement = document.getElementById("status");
 
 async function updateTimer() {
-  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+  const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
   const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, provider);
   try {
     const startTime = await contract.startTime();
     const endTime = await contract.endTime();
 
     const totalFrozenTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();
-    console.log(totalFrozenTokens.toString())
 
     const now = Math.floor(Date.now() / 1000);  // Текущее время в секундах
 
@@ -301,7 +300,7 @@ async function withdrawEther2acc() {
 
 
 document.addEventListener("DOMContentLoaded", async function () {
-  const provider = new ethers.providers.JsonRpcProvider('http://127.0.0.1:8545');
+  const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
   const signer = provider.getSigner();
   const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
 
@@ -332,11 +331,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   // Добавляем обработчик события для поля ввода при изменении
   etherInput.addEventListener("change", updateTokens);
 
-  // Добавляем обработчик события для кнопки
+  // Добавляем обработчик события для кнопки покупки purchaseTokens
   buyButton.addEventListener("click", async function () {
     const etherAmount = parseFloat(etherInput.value);
     await purchaseTokens(etherAmount);
-    console.log("Invest button clicked");
   });
 });
 
@@ -348,11 +346,33 @@ async function autoUpdateTokenBalances() {
     await new Promise((resolve) => setTimeout(resolve, 1000)); // Обновление баланса каждую секунду
   }
 }
+async function autoUpdateStateButtons() {
+  while (true){
+    const provider = new ethers.providers.JsonRpcProvider(PROVIDER_HOST);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(CONTRACT_ADDRESS_IDO, ABI_IDO, signer);
+    // Button Invest
+    const totalFrozenTokens = await contract.getBalanceToken() - await contract.totalFrozenTokens();
+    const endTime = await contract.endTime();
+    const now = Math.floor(Date.now() / 1000);
+
+    if (now > endTime || totalFrozenTokens.toString() === "0") {
+      document.getElementById("purchaseTokensButton").disabled = true;
+    }
+
+    // Button Withdraw tokens
+    if (now < endTime || totalFrozenTokens.toString() !== "0") {
+      document.getElementById("purchaseTokensButton").disabled = true;
+    }
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
 
 
 
 // Исполняемые функции
 autoUpdateTokenBalances();
+autoUpdateStateButtons();
 displayRate();
 updateTimer();
 displayTotalFrozenTokens();
