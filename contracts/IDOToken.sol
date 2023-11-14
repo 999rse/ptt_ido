@@ -10,7 +10,7 @@ contract IDOToken is Ownable {
     uint public totalTokensSold; // Общее количество проданых токенов
     uint public startTime; // Начало торгов
     uint public endTime; // Окончание торгов
-    uint public totalFrozenTokens; // общее количества замороженных токенов
+    uint public totalFrozenTokens; // Общее количества замороженных токенов
 
     mapping(address => uint) public purchasedTokens; // Баланс купленных токенов для каждого адреса
     mapping(address => uint) public frozenTokens; // Баланс замороженных токенов
@@ -77,9 +77,8 @@ contract IDOToken is Ownable {
         emit TokensPurchased(msg.sender, tokenAmount, msg.value);
     }
 
-
     function claimPurchasedTokens() external {
-        //require(block.timestamp > endTime, "IDO is still active");
+        require(block.timestamp > endTime, "IDO is still active");
         uint tokenAmount = purchasedTokens[msg.sender];
         require(tokenAmount > 0, "No purchased tokens for the sender");
 
@@ -87,13 +86,4 @@ contract IDOToken is Ownable {
         totalFrozenTokens -= tokenAmount; // Уменьшаем количество замороженных токенов
         TOKEN.transfer(msg.sender, tokenAmount);
     }
-
-    // function finishIDO() external onlyOwner {
-    //     require(block.timestamp > endTime, "IDO is still active");
-
-    //     // Передача отправленых денег на контракт IDO владельцу данного
-    //     require(getBalanceEther() > 0, "Not enough ether");
-    //     payable(owner()).transfer(getBalanceEther());
-    // }
-
 }
