@@ -3,14 +3,17 @@ const { ethers } = require("ethers");
 const PROVIDER_HOST = "http://127.0.0.1:8545";
 
 // OWNER CONTRACT ADDRESS IDO !!!
-const OWNER_CONTRACT_ADDRESS_IDO = "0xbC7AC944983a6F641f0620efD76163D7E8F83617".toLowerCase();
+const OWNER_CONTRACT_ADDRESS_IDO = "0xE8641861581cB8AD0C3D39A06953CeE2bBF36BF0".toLowerCase();
 
 // Адрес контракта IDO и его ABI
-const CONTRACT_ADDRESS_IDO = "0xDAFd26642c8b0e14c9bf4Dd692f87e6D65724C6c";
+const CONTRACT_ADDRESS_IDO = "0xFCAEE28eE7a4D6095448A0DccAA1ddD6a71aec82";
 const ABI_IDO = require('./abi/abi_ido_token.json');
 
 // Адрес контракта токена и его ABI
-const CONTRACT_ADDRESS_TOKEN = "";
+const CONTRACT_ADDRESS_TOKEN = "0x98fC12da4a47CF78075B644433d2776d4aE712ce";
+const TOKEN_SYMBOL = "PTT";
+const TOKEN_DECIMAL = 0;
+const TOKEN_IMAGE = 'pic_site/ptt.png';
 const ABI_TOKEN = require('./abi/abi_token.json');
 
 // Функция для отображения адреса пользователя и подключения
@@ -48,6 +51,38 @@ if (savedUserAddress) {
 // Обработчик для кнопки подключения
 document.getElementById("connectButton").addEventListener("click", connect);
 
+// Добавление токена в кошелек MetaMask
+async function addToken(){
+  if (typeof window.ethereum !== "undefined") {
+    try {
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: CONTRACT_ADDRESS_TOKEN,
+            symbol: TOKEN_SYMBOL, 
+            decimals: TOKEN_DECIMAL, 
+            image: TOKEN_IMAGE,
+          },
+        },
+      });
+  
+      if (wasAdded) {
+        console.log('You have added a token!');
+      } else {
+        console.log('Your loss!');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+      document.getElementById("addTokenButton").innerHTML = "Please install MetaMask";
+  }
+}
+if (savedUserAddress !== null){
+  document.getElementById("addTokenButton").style.display = "block";
+}
 
 // Покупка токенов в eth
 // Обработчик кнопки: раздел CONVERTOR
@@ -90,8 +125,26 @@ async function withdrawTokens() {
     document.getElementById("withdrawTokensButton").innerHTML = "Please install MetaMask";
   }
 }
+if (savedUserAddress !== null){
+  document.getElementById("withdrawTokensButton").style.display = "block";
+}
 
 // <----------------- Получение различных балансов ----------------->
+
+// Отображение адресов контрактов
+async function displayAddressOfContracts() {
+  if (typeof window.ethereum !== "undefined") {
+    try {
+      const displayAddressIDOElement = document.getElementById("displayContractAddress");
+      displayAddressIDOElement.innerHTML = "Contract address IDO<br>" + CONTRACT_ADDRESS_IDO + "<br><br>" + 
+      "Contract address TOKEN<br>" + CONTRACT_ADDRESS_TOKEN;
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    document.getElementById("contractRate").innerHTML = "Please install MetaMask";
+  }
+}
 
 // Отображение RATE
 async function displayRate() {
@@ -338,6 +391,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 });
 
+
+// <----------------- AUTO UPDATABLE FUNCTIONS ----------------->
+
+
 async function autoUpdateTokenBalances() {
   while (true) {
     displayTotalFrozenTokens();
@@ -375,6 +432,7 @@ autoUpdateStateButtons();
 displayRate();
 updateTimer();
 displayTotalFrozenTokens();
+displayAddressOfContracts();
 
 module.exports = {
   connect,
@@ -386,4 +444,5 @@ module.exports = {
   displayTotalFrozenTokens,
   burnTokens,
   withdrawEther2acc,
+  addToken,
 };
