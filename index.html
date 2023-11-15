@@ -27,7 +27,7 @@
 				</ul>
 			</div>
 			<div class="btn-group " id="admin_functions" style="display: none;">
-				<button type="button" class="btn dropdown-toggle admin_actions_main main-text-500-15" data-bs-toggle="dropdown" aria-expanded="false">
+				<button type="button" class="btn mx-1 dropdown-toggle admin_actions_main main-text-500-15" data-bs-toggle="dropdown" aria-expanded="false">
 				  Admin actions
 				</button>
 				<ul class="dropdown-menu">
@@ -36,7 +36,10 @@
 				</ul>
 			</div>
 			<div class="text-center">
-				<button type="button" class="btn mx-1 main-text-500-15 cryptoconverter__buybutton color_button_connect" id="connectButton" onclick="bundle.connect()">Connect Metamask</button>
+				<div class="hstack gap-0.01">
+					<button type="button" class="btn mx-1 main-text-500-15 cryptoconverter__buybutton color_button_connect" id="addTokenButton" onclick="bundle.addToken()" style="display: none;">Add Token</button>
+					<button type="button" class="btn mx-1 main-text-500-15 cryptoconverter__buybutton color_button_connect" id="connectButton" onclick="bundle.connect()">Connect Metamask</button>
+				</div>
 			</div>
 		</nav>
 		<!-- main body -->
@@ -98,6 +101,7 @@
 					<div class="type_convertor text-center title-promo-shadow">
 						BUY TOKENS
 					</div>
+					<div class="shadow p-4 mb-1 bg-body-tertiary rounded mx-2 main-text-700 gradient_values_block text-center" id="displayContractAddress"></div>
 					<div class="cryptoconverter__body">
 						<div class="cryptoconverter__pay">
 							<div class="cryptoconverter__block-title main-text-500-18">Replenishment amount</div>
@@ -117,8 +121,8 @@
 						</div>
 					</div>
 					<div class="d-grid gap-2 col-6 mx-auto">
-						<button class="btn color_button_invest main-text-500-18 cryptoconverter__buybutton" type="button" id="purchaseTokensButton" onclick="bundle.purchaseTokens()">Invest</button>
-						<button type="button" class="btn color_button_connect mx-1 main-text-500-18" id="withdrawTokensButton" onclick="bundle.withdrawTokens()">Withdraw tokens</button>
+						<button class="btn color_button_invest mx-1 main-text-500-18 cryptoconverter__buybutton" type="button" id="purchaseTokensButton" onclick="bundle.purchaseTokens()">Invest</button>
+						<button type="button" class="btn color_button_connect mx-1 main-text-500-18" id="withdrawTokensButton" onclick="bundle.withdrawTokens()" style="display: none;">Withdraw tokens</button>
 					</div>
 				</div>
 			</form>
