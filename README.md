@@ -61,7 +61,7 @@ All things are happen in __develop__ network. For use another network, configura
 
 In first terminal load local blockhain
 ```bash
-ganache --networkId 5777
+ganache --chain.networkId 5777 --chainId 31337
 ```
 
 Before deploy setup `deploy_param.js`:
@@ -78,14 +78,14 @@ Before deploy setup `deploy_param.js`:
 }
 ```
 * Parameters for 2_deploy_token.js:
-    - INITIAL_OWNER_TOKEN_CONTRACT - Owner account (by default the first in ganache)
-    - TOTAL_SUPPLY - How many tokens to issue in total
+    - `INITIAL_OWNER_TOKEN_CONTRACT` - Owner account (by default the first in ganache)
+    - `TOTAL_SUPPLY` - How many tokens to issue in total
 * Parameters for 3_deploy_ido.js:
-    - NUMBER_OF_TOKENS_TRANSFER - Number of tokens to be transferred to the IDO contract account (must be <= totalSupply)
-    - RATE - Specified in [wei](https://www.investopedia.com/terms/w/wei.asp). In brief, how much ether must be given to get one token. [Convertor](https://eth-converter.com/) ether to wei.
-    - START_TIME_IDO - Time when start IDO. In UNIX Time.
-    - END_TIME_IDO - Time when end IDO. In UNIX Time.
-    - INITIAL_OWNER_IDO_CONTRACT - _Extention_: you can change owner this contract
+    - `NUMBER_OF_TOKENS_TRANSFER` - Number of tokens to be transferred to the IDO contract account (must be <= totalSupply)
+    - `RATE` - Specified in [wei](https://www.investopedia.com/terms/w/wei.asp). In brief, how much ether must be given to get one token. [Convertor](https://eth-converter.com/) ether to wei.
+    - `START_TIME_IDO` - Time when start IDO. In UNIX Time.
+    - `END_TIME_IDO` - Time when end IDO. In UNIX Time.
+    - `INITIAL_OWNER_IDO_CONTRACT` - _Extention_: you can change owner this contract
 
 In the second terminal start migration
 ```bash
@@ -93,8 +93,10 @@ bash exec/migrate.bash
 ```
 
 Now, in the second you can see that 2 contracts are deployed. From console:
-1. Put contract address from section `3_deploy_ido.js` to file `index.js` in field `CONTRACT_ADDRESS_IDO`.
-2. Put the IDO contract owner from section `3_deploy_ido.js` to file `index.js` in field `OWNER_CONTRACT_ADDRESS_IDO`.
+  - Put contract address from section `3_deploy_ido.js` to file `index.js` in field `CONTRACT_ADDRESS_IDO`.
+  - Put the IDO contract owner (_account_) from section `3_deploy_ido.js` to file `index.js` in field `OWNER_CONTRACT_ADDRESS_IDO`.
+  - Put contract address frim section `2_seploy_token.js` to file `index.js` in field `CONTRACT_ADDRESS_TOKEN`.
+  - _Extention_: setup `TOKEN_SYMBOL`, `TOKEN_DECIMAL`, `TOKEN_IMAGE` as you have done in Token.sol. If you've never change Token.sol - skip this point.
 
 Here use build page
 ```bash
