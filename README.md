@@ -59,11 +59,15 @@ sudo npm install -g ganache
 ```
 ### Install yarn
 ```bash
-npm install --global yarn
+sudo npm install --global yarn
+```
+### Install truffle
+```bash
+sudo npm install -g truffle
 ```
 ### Use yarn for install all packages
 ```bash
-yarn install --ignore-engines
+yarn install 
 ```
 
 ## How to use
@@ -72,7 +76,7 @@ All things are happen in __develop__ network. For use another network, configura
 
 In first terminal load local blockhain
 ```bash
-ganache --chain.networkId 5777 --chain.chainId 31337
+ganache --chain.networkId 5777 --chain.chainId 31337 --server.host 127.0.0.1
 ```
 
 Before deploy setup `deploy_param.js`:
@@ -137,3 +141,24 @@ Import an account: [Official metamask guide](https://support.metamask.io/hc/en-u
 
 ## Possible errors
 If there are errors in the _node_modules/openzippelin/.._. in `sol` type files, follow these errors and change the current version (most likely there is `pragma solidity ^0.8.20` or `^0.8.21`) on `pragma solidity ^0.8.17`;
+
+Change in this files:
+* @openzeppelin/contracts/token/ERC20/ERC20.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
+  * mapping(address account => uint256) private _balances; -> mapping(address => uint256) private _balances;
+  * mapping(address account => mapping(address spender => uint256)) private _allowances; -> mapping(address => mapping(address => uint256)) private _allowances;
+
+* @openzeppelin/contracts/token/ERC20/IERC20.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
+
+*@openzeppelin/contracts/utils/Context.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
+
+* @openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
+
+* @openzeppelin/contracts/interfaces/draft-IERC6093.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
+
+* @openzeppelin/contracts/access/Ownable.sol
+  * pragma solidity ^0.8.20; -> pragma solidity ^0.8.17;
