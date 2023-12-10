@@ -34,7 +34,7 @@ sudo apt-get upgrade -y
 ```
 ### Go to directory
 ```bash
-cd ptech/
+cd ptt_ido/
 sudo apt-get install software-properties-common -y
 ```
 ### Add solidity repostory 
@@ -46,13 +46,24 @@ sudo apt-get update
 ```bash
 sudo apt-get install npm -y
 ```
+### Install nvm
+```bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+source ~/.bashrc
+nvm install 16.20.2
+nvm use 16.20.2
+```
+### Install Ganache
+```bash
+sudo npm install -g ganache
+```
 ### Install yarn
 ```bash
 npm install --global yarn
 ```
 ### Use yarn for install all packages
 ```bash
-yarn
+yarn install --ignore-engines
 ```
 
 ## How to use
@@ -61,7 +72,7 @@ All things are happen in __develop__ network. For use another network, configura
 
 In first terminal load local blockhain
 ```bash
-ganache --chain.networkId 5777 --chainId 31337
+ganache --chain.networkId 5777 --chain.chainId 31337
 ```
 
 Before deploy setup `deploy_param.js`:
