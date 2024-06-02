@@ -137,7 +137,7 @@ Then fill fields as photo down and save.
 Import an account: [Official metamask guide](https://support.metamask.io/hc/en-us/articles/360015489331-How-to-import-an-Account)
 
 
-## Use, edit, Rock and Roll!
+## Use, edit, Rock and Roll
 
 ## Possible errors
 Change in this files:
